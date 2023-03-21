@@ -1,0 +1,14 @@
+{
+  "name": "framework-arduino-lpc5528",
+  "version": "0.2.2",
+  "description": "Arduino Wiring-based Framework for the LPC5528 MCU series",
+  "keywords": [
+    "framework",
+    "arduino",
+    "nxp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/p3p/pio-framework-arduino-lpc176x"
+  }
+}
