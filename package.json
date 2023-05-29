@@ -9,6 +9,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/p3p/pio-framework-arduino-lpc176x"
+    "url": "https://github.com/ellensp/framework-arduino-lpc5528"
   }
 }
