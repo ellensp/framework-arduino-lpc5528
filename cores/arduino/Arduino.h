@@ -41,7 +41,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "HardwareSerial.h"
 #include "masstorage1.h"
 #include "Wire.h"
-#include "spi.h"
+#include "SPI.h"
 #include "adc.h"
 #include "pwm.h"
 #include "timers.h"
