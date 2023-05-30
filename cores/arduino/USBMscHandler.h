@@ -16,7 +16,6 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
 #ifndef _USB_MSC_HANDLER_H_
 #define _USB_MSC_HANDLER_H_
 
@@ -40,20 +39,17 @@ class USBMscHandler {
 
     /** Optional functions **/
 
-    virtual bool Init()
-    {
+    virtual bool Init() {
       return true;
     }
 
     // Return false if the mass storage device has not been connected or initialized yet.
-    virtual bool IsReady()
-    {
+    virtual bool IsReady() {
       return true;
     }
 
     // If the device should be read-only then this function should return true.
-    virtual bool IsWriteProtected()
-    {
+    virtual bool IsWriteProtected() {
       return false;
     }
 };
@@ -61,24 +57,20 @@ class USBMscHandler {
 class DummyUSBMscHandler : public USBMscHandler {
   public:
     // Any call to one of these functions always fails.
-    bool GetCapacity(uint32_t *pBlockNum, uint16_t *pBlockSize)
-    {
+    bool GetCapacity(uint32_t *pBlockNum, uint16_t *pBlockSize) {
       return false;
     }
 
-    bool Read(uint8_t *pBuf, uint32_t blockAddr, uint16_t blkLen)
-    {
+    bool Read(uint8_t *pBuf, uint32_t blockAddr, uint16_t blkLen) {
       return false;
     }
 
-    bool Write(uint8_t *pBuf, uint32_t blockAddr, uint16_t blkLen)
-    {
+    bool Write(uint8_t *pBuf, uint32_t blockAddr, uint16_t blkLen) {
       return false;
     }
 
     // The dummy handler is never ready.
-    bool IsReady()
-    {
+    bool IsReady() {
       return false;
     }
 };

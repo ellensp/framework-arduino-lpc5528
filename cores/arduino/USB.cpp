@@ -37,8 +37,7 @@
 
 USBComposite USBDevice;
 
-void USBComposite::begin()
-{
+void USBComposite::begin() {
   if (!initialized) {
     initialize();
   }
@@ -47,28 +46,25 @@ void USBComposite::begin()
 #ifdef USBD_USE_MSC_CLASS
 DummyUSBMscHandler dummyHandler;
 
-// void USBComposite::registerMscHandler(USBMscHandler &handler)
-// {
-  // pSingleMscHandler = &handler;
+// void USBComposite::registerMscHandler(USBMscHandler &handler) {
+//   pSingleMscHandler = &handler;
 //   registerMscHandlers(1, &pSingleMscHandler, USBD_MSC_fops.pInquiry);
 // }
 
-// void USBComposite::registerMscHandlers(uint8_t count, USBMscHandler **ppHandlers, uint8_t *pInquiryData)
-// {
-  // if (count == 0) {
-  //   registerMscHandler(dummyHandler);
-  // } else {
-  //   ppUsbMscHandlers = ppHandlers;
-  //   usbMscMaxLun = count - 1;
-  //   USBD_MSC_fops.pInquiry = pInquiryData;
-  // }
+// void USBComposite::registerMscHandlers(uint8_t count, USBMscHandler **ppHandlers, uint8_t *pInquiryData) {
+//   if (count == 0) {
+//     registerMscHandler(dummyHandler);
+//   } else {
+//     ppUsbMscHandlers = ppHandlers;
+//     usbMscMaxLun = count - 1;
+//     USBD_MSC_fops.pInquiry = pInquiryData;
+//   }
 // }
 #endif
 
 void USBComposite::initialize()
 {
-//   hUSBD_Device_CDC = &hUSBD_Device;
-
+  // hUSBD_Device_CDC = &hUSBD_Device;
 
   /* Init Device Library */
   // if (USBD_Init(&hUSBD_Device, &USBD_Desc, 0) != USBD_OK) {
@@ -113,15 +109,13 @@ void USBComposite::initialize()
   initialized = true;
 }
 
-void USBComposite::end()
-{
+void USBComposite::end() {
   if (initialized) {
     deinitialize();
   }
 }
 
-void USBComposite::deinitialize()
-{
+void USBComposite::deinitialize() {
   // USBD_Stop(&hUSBD_Device);
   // USBD_DeInit(&hUSBD_Device);
   // hs_usb_deinit();

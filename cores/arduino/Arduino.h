@@ -33,7 +33,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _ARDUINO_H_
 #define _ARDUINO_H_
 
-
 #include "pinmapping.h"
 #include "wiring_digital.h"
 #include "wiring_time.h"
@@ -68,8 +67,6 @@ typedef uint8_t byte;
 typedef int16_t pin_t;
 
 #define constrain(value, arg_min, arg_max) ((value) < (arg_min) ? (arg_min) :((value) > (arg_max) ? (arg_max) : (value)))
-
-
 
 void cli(void); // Disable
 void sei(void); // Enable

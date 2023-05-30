@@ -29,5 +29,4 @@ extern uint16_t makeWord(uint8_t h, uint8_t l) ;
 
 #define word(...) makeWord(__VA_ARGS__)
 
-
 #endif /* _WIRING_MATH_ */

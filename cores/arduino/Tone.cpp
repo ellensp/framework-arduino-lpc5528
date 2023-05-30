@@ -12,10 +12,8 @@ void tone(const pin_t _pin, const uint32_t frequency, const uint32_t duration) {
   tone_pin = _pin;
   toggles = duration ? 2 * frequency * duration / 1000 : -1;
 
-  if (!initialised_tone_timer)
-  {
-
-    // timer_init();  
+  if (!initialised_tone_timer) {
+    // timer_init();
     initialised_tone_timer = true;
   }
   timer_start(2,frequency*5);
@@ -36,31 +34,25 @@ extern "C" [[gnu::optimize("O3")]] void CTIMER2_IRQHandler(void) {
 	/* Clear the status flags that were set */
 	CTIMER_ClearStatusFlags(CTIMER2, int_stat);
 
-  if (toggles != 0) 
-  {
-    if(toggles > 0) 
-    {
+  if (toggles != 0) {
+    if(toggles > 0) {
         toggles--;
-    }  
+    }
 
-    if(BuzzPinVal==0)
-    {
-        pinMode(P1_25,OUTPUT);
-        digitalWrite(P1_25,HIGH);
-        // digitalWrite(P1_25,!(digitalRead(P1_25)));
-        BuzzPinVal=1;
-        // Serial3.printf("pin HIGH\r\n");
+    if(BuzzPinVal==0) {
+      pinMode(P1_25,OUTPUT);
+      digitalWrite(P1_25,HIGH);
+      // digitalWrite(P1_25,!(digitalRead(P1_25)));
+      BuzzPinVal=1;
+      // Serial3.printf("pin HIGH\r\n");
     }
-    else
-    {
-        pinMode(P1_25,OUTPUT);
-        digitalWrite(P1_25,LOW);
-        BuzzPinVal=0;
+    else {
+      pinMode(P1_25,OUTPUT);
+      digitalWrite(P1_25,LOW);
+      BuzzPinVal=0;
     }
-  } 
-  else 
-  {
+  }
+  else {
     noTone(tone_pin);
   }
 }
-

@@ -38,11 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fsl_iocon.h"
 #include "fsl_clock.h"
 
-
 #include <stdint.h>
-
-
-
 
 // Time API
 uint64_t millis(void);
@@ -51,6 +47,5 @@ void delay(uint64_t ms);
 void delayMicroseconds(uint64_t us);
 
 void systick_init(void);
-
 
 #endif /* _WIRING_TIME_H_ */

@@ -223,5 +223,4 @@ inline uint8_t USB::setConf(uint8_t addr, uint8_t ep, uint8_t conf_value) {
 
 #endif // defined(USB_METHODS_INLINE)
 
-
 #endif //_USBCORE_H_

@@ -36,53 +36,38 @@ volatile uint64_t ms_count = 0;
 
 extern void SysTick_Callback(void);
 
-extern void HAL_SYSTICK_Callback();      
+extern void SYSTICK_Callback();
 
 extern "C"{
-  void SysTick_Handler(void)
-  {
-    HAL_SYSTICK_Callback();
+  void SysTick_Handler(void) {
+    SYSTICK_Callback();
     ms_count++;
   }
 }
 
-uint64_t millis(void)
-{
+uint64_t millis(void) {
   return ms_count;
 }
 
-uint64_t micros(void)
-{
+uint64_t micros(void) {
   return ((ms_count * 1000) + ( (SysTick->LOAD - SysTick->VAL)/ (CLOCK_GetFreq(kCLOCK_CoreSysClk)/1000000) ) );  
 }
 
-void delay(uint64_t ms)
-{
+void delay(uint64_t ms) {
   uint64_t ms_begin = millis();
-  while(millis() - ms_begin <= ms)
-  {
-
+  while(millis() - ms_begin <= ms) {
   }
 }
 
-
-void delayMicroseconds(uint64_t us)
-{
+void delayMicroseconds(uint64_t us) {
   uint64_t ms_begin = micros();
-  while(micros() - ms_begin <= us)
-  {
-
+  while(micros() - ms_begin <= us) {
   }
 }
 
-
-
-void systick_init(void)
-{
-  if (SysTick_Config((CLOCK_GetFreq(kCLOCK_CoreSysClk)) / 1000U)) // 1ms
-  {
-      while (1)
-      {
+void systick_init(void) {
+  if (SysTick_Config((CLOCK_GetFreq(kCLOCK_CoreSysClk)) / 1000U)) { // 1ms
+      while (1){
       }
   }
 }

@@ -51,8 +51,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define I2C_MASTER_CLOCK_FREQUENCY (12000000)
 #define I2C_ADDR_7BIT 0x7EU
 
-
-
 class TwoWire {
   private:
     static uint8_t rxBuffer[];

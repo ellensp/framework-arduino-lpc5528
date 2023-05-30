@@ -53,8 +53,7 @@ class __FlashStringHelper;
 class StringSumHelper;
 
 // The string class
-class String
-{
+class String {
 	// use a function pointer to allow for "if (s)" without the
 	// complications of an operator bool(). for more information, see:
 	// http://www.artima.com/cppsource/safebool.html
@@ -221,8 +220,7 @@ protected:
 	#endif
 };
 
-class StringSumHelper : public String
-{
+class StringSumHelper : public String {
 public:
 	StringSumHelper(const String &s) : String(s) {}
 	StringSumHelper(const char *p) : String(p) {}

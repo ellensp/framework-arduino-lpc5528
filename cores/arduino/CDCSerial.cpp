@@ -30,17 +30,14 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
 #include "CDCSerial.h"
 #include "string.h"
 
-size_t min(size_t a,size_t b)
-{
+size_t min(size_t a,size_t b) {
   return a > b ? b : a;
 }
 
-void CDC_SendData(void)
-{
+void CDC_SendData(void) {
     uint32_t size = s_sendSize;
     int error;
 
@@ -54,8 +51,7 @@ void CDC_SendData(void)
     s_sendSize   = 0;
 }
 
-void CDC_FlushBuffer(void)
-{
+void CDC_FlushBuffer(void) {
   uint32_t i;
 
   if(UsbSerial.transmit_buffer.available() > 0){
@@ -72,8 +68,7 @@ void CDC_FlushBuffer(void)
   }
 }
 
-void CDC_FillBuffer(uint32_t free_size)
-{
+void CDC_FillBuffer(uint32_t free_size) {
   if(free_size > 0){
     if(0 != s_recvSize){
       uint8_t copy_size  = min(free_size,s_recvSize);
@@ -90,7 +85,7 @@ void CDC_FillBuffer(uint32_t free_size)
         memcpy(UsbSerial.receive_buffer.buffer,
               s_currRecvBuf + UsbSerial.receive_buffer.size() - UsbSerial.receive_buffer.index_write,
               copy_size - UsbSerial.receive_buffer.size() + UsbSerial.receive_buffer.index_write);
-        
+
       }
       s_recvSize = 0;
       UsbSerial.receive_buffer.index_write = (UsbSerial.receive_buffer.index_write + copy_size)
@@ -109,8 +104,7 @@ bool SerialCDC_available() {
   return UsbSerial.available();
 }
 
-void fs_usb_loop(void)
-{
+void fs_usb_loop(void) {
     UsbSerial.host_connected = s_cdcVcom.attach;
     CDC_FillBuffer(UsbSerial.receive_buffer.free());
 }

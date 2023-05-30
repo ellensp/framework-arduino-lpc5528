@@ -541,7 +541,7 @@ public:
   uint8_t bAddress;
   BulkOnly();
   uint8_t GetLastUsbError() { return bLastUsbError; }; // not used
-  uint8_t GetbMaxLUN() { return bMaxLUN; }; 
+  uint8_t GetbMaxLUN() { return bMaxLUN; };
   uint8_t GetbTheLUN() { return bTheLUN; };
   bool WriteProtected(uint8_t lun);
   uint8_t MediaCTL(uint8_t lun, uint8_t ctl);

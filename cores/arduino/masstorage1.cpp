@@ -53,8 +53,7 @@ extern "C"{
 static volatile uint8_t ufiIng;
 static volatile usb_status_t ufiStatus;
 
-static void USB_HostMsdUfiCallback(void *param, uint8_t *data, uint32_t dataLength, usb_status_t status)
-{
+static void USB_HostMsdUfiCallback(void *param, uint8_t *data, uint32_t dataLength, usb_status_t status) {
     ufiIng = 0;
     ufiStatus = status;
 }
@@ -103,9 +102,9 @@ uint16_t BulkOnly::GetSectorSize(uint8_t lun) {
  * @param lun Logical Unit Number
  * @return true if LUN is ready for use
  */
-bool BulkOnly::LUNIsGood(uint8_t lun) { 
+bool BulkOnly::LUNIsGood(uint8_t lun) {
   if(lun > bMaxLUN) return false;
-  return LUNOk[lun]; 
+  return LUNOk[lun];
 }
 
 /**
@@ -116,7 +115,7 @@ bool BulkOnly::LUNIsGood(uint8_t lun) {
  */
 bool BulkOnly::WriteProtected(uint8_t lun) {
    if(lun > bMaxLUN) return false;
-   return WriteOk[lun]; 
+   return WriteOk[lun];
 }
 
 /**
@@ -261,7 +260,7 @@ uint8_t BulkOnly::ConfigureDevice(uint8_t parent, uint8_t port, bool lowspeed) {
 uint8_t BulkOnly::Init(uint8_t parent __attribute__((unused)), uint8_t port __attribute__((unused)), bool lowspeed __attribute__((unused))) {
     uint32_t cur_time = millis();
 
-    while(millis() - cur_time < 1000){
+    while(millis() - cur_time < 1000) {
         hs_usb_loop();
     }
 
@@ -452,11 +451,11 @@ uint8_t BulkOnly::GetMaxLUN(uint8_t *plun) {
  * @return
  */
 uint8_t BulkOnly::Inquiry(uint8_t lun, uint16_t bsize, uint8_t *buf) {
-        // Notify(PSTR("\r\nInquiry\r\n"), 0x80);
-        // Notify(PSTR("---------\r\n"), 0x80);//by dylan
+  // Notify(PSTR("\r\nInquiry\r\n"), 0x80);
+  // Notify(PSTR("---------\r\n"), 0x80);//by dylan
 
-        CDB6_t cdb = CDB6_t(SCSI_CMD_INQUIRY, lun, 0UL, (uint8_t)bsize, 0);
-        return SCSITransaction6(&cdb, bsize, buf, (uint8_t)MASS_CMD_DIR_IN);
+  CDB6_t cdb = CDB6_t(SCSI_CMD_INQUIRY, lun, 0UL, (uint8_t)bsize, 0);
+  return SCSITransaction6(&cdb, bsize, buf, (uint8_t)MASS_CMD_DIR_IN);
 }
 
 /**
@@ -466,15 +465,15 @@ uint8_t BulkOnly::Inquiry(uint8_t lun, uint16_t bsize, uint8_t *buf) {
  * @return
  */
 uint8_t BulkOnly::TestUnitReady(uint8_t lun) {
-        //SetCurLUN(lun);
-        if (!bAddress)
-                return MASS_ERR_UNIT_NOT_READY;
+  //SetCurLUN(lun);
+  if (!bAddress)
+          return MASS_ERR_UNIT_NOT_READY;
 
-        // Notify(PSTR("\r\nTestUnitReady\r\n"), 0x80);
-        // Notify(PSTR("-----------------\r\n"), 0x80);//dylan
+  // Notify(PSTR("\r\nTestUnitReady\r\n"), 0x80);
+  // Notify(PSTR("-----------------\r\n"), 0x80);//dylan
 
-        CDB6_t cdb = CDB6_t(SCSI_CMD_TEST_UNIT_READY, lun, (uint8_t)0, 0);
-        return SCSITransaction6(&cdb, 0, nullptr, (uint8_t)MASS_CMD_DIR_IN);
+  CDB6_t cdb = CDB6_t(SCSI_CMD_TEST_UNIT_READY, lun, (uint8_t)0, 0);
+  return SCSITransaction6(&cdb, 0, nullptr, (uint8_t)MASS_CMD_DIR_IN);
 
 }
 
@@ -490,11 +489,11 @@ uint8_t BulkOnly::TestUnitReady(uint8_t lun) {
  * @return
  */
 uint8_t BulkOnly::ModeSense6(uint8_t lun, uint8_t pc, uint8_t page, uint8_t subpage, uint8_t len, uint8_t * pbuf) {
-        // Notify(PSTR("\r\rModeSense\r\n"), 0x80);
-        // Notify(PSTR("------------\r\n"), 0x80); // dylan
+  // Notify(PSTR("\r\rModeSense\r\n"), 0x80);
+  // Notify(PSTR("------------\r\n"), 0x80); // dylan
 
-        CDB6_t cdb = CDB6_t(SCSI_CMD_MODE_SENSE_6, lun, (uint32_t)((((pc << 6) | page) << 8) | subpage), len, 0);
-        return SCSITransaction6(&cdb, len, pbuf, (uint8_t)MASS_CMD_DIR_IN);
+  CDB6_t cdb = CDB6_t(SCSI_CMD_MODE_SENSE_6, lun, (uint32_t)((((pc << 6) | page) << 8) | subpage), len, 0);
+  return SCSITransaction6(&cdb, len, pbuf, (uint8_t)MASS_CMD_DIR_IN);
 }
 
 /**
@@ -506,11 +505,11 @@ uint8_t BulkOnly::ModeSense6(uint8_t lun, uint8_t pc, uint8_t page, uint8_t subp
  * @return
  */
 uint8_t BulkOnly::ReadCapacity10(uint8_t lun, uint8_t *buf) {
-        // Notify(PSTR("\r\nReadCapacity\r\n"), 0x80);
-        // Notify(PSTR("---------------\r\n"), 0x80); // dylan
+  // Notify(PSTR("\r\nReadCapacity\r\n"), 0x80);
+  // Notify(PSTR("---------------\r\n"), 0x80); // dylan
 
-        CDB10_t cdb = CDB10_t(SCSI_CMD_READ_CAPACITY_10, lun);
-        return SCSITransaction10(&cdb, 8, buf, (uint8_t)MASS_CMD_DIR_IN);
+  CDB10_t cdb = CDB10_t(SCSI_CMD_READ_CAPACITY_10, lun);
+  return SCSITransaction10(&cdb, 8, buf, (uint8_t)MASS_CMD_DIR_IN);
 }
 
 /**
@@ -522,25 +521,25 @@ uint8_t BulkOnly::ReadCapacity10(uint8_t lun, uint8_t *buf) {
  * @return Write protect switch status.
  */
 uint8_t BulkOnly::Page3F(uint8_t lun) {
-        static uint8_t buf[192];
-        for (int i = 0; i < 192; i++) {
-                buf[i] = 0x00;
-        }
-        WriteOk[lun] = true;
-        #ifdef SKIP_WRITE_PROTECT
-          return 0;
-        #endif
-        uint8_t rc = ModeSense6(lun, 0, 0x3F, 0, 192, buf);
-        if (!rc) {
-                WriteOk[lun] = ((buf[2] & 0x80) == 0);
-                // Notify(PSTR("Mode Sense: "), 0x80);
-                for (int i = 0; i < 4; i++) {
-                        // D_PrintHex<uint8_t> (buf[i], 0x80);
-                        // Notify(PSTR(" "), 0x80);
-                }
-                // Notify(PSTR("\r\n"), 0x80);//dylan
-        }
-        return rc;
+  static uint8_t buf[192];
+  for (int i = 0; i < 192; i++) {
+          buf[i] = 0x00;
+  }
+  WriteOk[lun] = true;
+  #ifdef SKIP_WRITE_PROTECT
+    return 0;
+  #endif
+  uint8_t rc = ModeSense6(lun, 0, 0x3F, 0, 192, buf);
+  if (!rc) {
+          WriteOk[lun] = ((buf[2] & 0x80) == 0);
+          // Notify(PSTR("Mode Sense: "), 0x80);
+          for (int i = 0; i < 4; i++) {
+                  // D_PrintHex<uint8_t> (buf[i], 0x80);
+                  // Notify(PSTR(" "), 0x80);
+          }
+          // Notify(PSTR("\r\n"), 0x80);//dylan
+  }
+  return rc;
 }
 
 /**
@@ -552,12 +551,12 @@ uint8_t BulkOnly::Page3F(uint8_t lun) {
  * @return
  */
 uint8_t BulkOnly::RequestSense(uint8_t lun, uint16_t size, uint8_t *buf) {
-        Notify(PSTR("\r\nRequestSense\r\n"), 0x80);
-        Notify(PSTR("----------------\r\n"), 0x80);
+  Notify(PSTR("\r\nRequestSense\r\n"), 0x80);
+  Notify(PSTR("----------------\r\n"), 0x80);
 
-        CDB6_t cdb = CDB6_t(SCSI_CMD_REQUEST_SENSE, lun, 0UL, (uint8_t)size, 0);
-        CommandBlockWrapper cbw = CommandBlockWrapper(++dCBWTag, (uint32_t)size, &cdb, (uint8_t)MASS_CMD_DIR_IN);
-        return Transaction(&cbw, size, buf);
+  CDB6_t cdb = CDB6_t(SCSI_CMD_REQUEST_SENSE, lun, 0UL, (uint8_t)size, 0);
+  CommandBlockWrapper cbw = CommandBlockWrapper(++dCBWTag, (uint32_t)size, &cdb, (uint8_t)MASS_CMD_DIR_IN);
+  return Transaction(&cbw, size, buf);
 }
 
 
@@ -572,7 +571,7 @@ uint8_t BulkOnly::RequestSense(uint8_t lun, uint16_t size, uint8_t *buf) {
  * @return
  */
 uint8_t BulkOnly::ClearEpHalt(uint8_t index) {
-        return 0;
+  return 0;
 }
 
 /**
@@ -588,17 +587,17 @@ void BulkOnly::Reset() {
  * @return 0 if successful
  */
 uint8_t BulkOnly::ResetRecovery() {
-    Notify(PSTR("\r\nResetRecovery\r\n"), 0x80);
-    Notify(PSTR("-----------------\r\n"), 0x80);
+  Notify(PSTR("\r\nResetRecovery\r\n"), 0x80);
+  Notify(PSTR("-----------------\r\n"), 0x80);
 
-    delay(6);
-    Reset();
-    delay(6);
-    ClearEpHalt(epDataInIndex);
-    delay(6);
-    bLastUsbError = ClearEpHalt(epDataOutIndex);
-    delay(6);
-    return bLastUsbError;
+  delay(6);
+  Reset();
+  delay(6);
+  ClearEpHalt(epDataInIndex);
+  delay(6);
+  bLastUsbError = ClearEpHalt(epDataOutIndex);
+  delay(6);
+  return bLastUsbError;
 }
 
 /**
@@ -607,7 +606,7 @@ uint8_t BulkOnly::ResetRecovery() {
  * Clear all EP data and clear all LUN status
  */
 void BulkOnly::ClearAllEP() {
-    for (uint8_t i = 0; i < MASS_MAX_ENDPOINTS; i++) {
+  for (uint8_t i = 0; i < MASS_MAX_ENDPOINTS; i++) {
     epInfo[i].epAddr = 0;
     epInfo[i].maxPktSize = (i) ? 0 : 8;
     epInfo[i].bmSndToggle = 0;
@@ -646,18 +645,18 @@ uint8_t BulkOnly::Transaction(CommandBlockWrapper *pcbw, uint16_t buf_size, void
   uint8_t cdb[10] = {0};
   int status;
   memcpy(cdb,pcbw->CBWCB,pcbw->bmCBWCBLength);
-  
+
   status = USB_HostMsdCommand1(g_UsbFatfsClassHandle, (uint8_t*)buf, buf_size, USB_HostMsdUfiCallback, NULL,
                               pcbw->bmCBWFlags, cdb,pcbw->bmCBWCBLength);
 
-  if(kStatus_USB_Success == status){
+  if(kStatus_USB_Success == status) {
       ufiIng = 1;
       while (ufiIng)
       {
           usb1_host_task(g_HostHandle);
       }
       return MASS_ERR_SUCCESS;
-  }else{
+  } else {
     PRINTF("status:%d\r\n",status);
     return MASS_ERR_NO_MEDIA;
   }
@@ -780,61 +779,61 @@ void BulkOnly::PrintEndpointDescriptor(const USB_FD_ENDPOINT_DESCRIPTOR * ep_ptr
  * @param ep_ptr
  */
 void BulkOnly::PrintDescriptorsInfo(void) {
-    if(g_HostHandle != NULL){
+  if(g_HostHandle != NULL){
 
-      usb_descriptor_device_t* dev_descriptor = g_HostDeviceInstance->deviceDescriptor;
-      usb_host_configuration_t* host_conf = &(g_HostDeviceInstance->configuration);
-      usb_descriptor_configuration_t* conf_descriptor = host_conf->configurationDesc;
-      usb_host_interface_t* host_interface = host_conf->interfaceList;
-      usb_descriptor_interface_t* inf_descriptor = host_interface->interfaceDesc;
-      usb_host_ep_t* endp_list = host_interface->epList;
-      usb_descriptor_endpoint_t* endp_descriptor;
+    usb_descriptor_device_t* dev_descriptor = g_HostDeviceInstance->deviceDescriptor;
+    usb_host_configuration_t* host_conf = &(g_HostDeviceInstance->configuration);
+    usb_descriptor_configuration_t* conf_descriptor = host_conf->configurationDesc;
+    usb_host_interface_t* host_interface = host_conf->interfaceList;
+    usb_descriptor_interface_t* inf_descriptor = host_interface->interfaceDesc;
+    usb_host_ep_t* endp_list = host_interface->epList;
+    usb_descriptor_endpoint_t* endp_descriptor;
 
 /* device descriptors */
-      PRINTF("*******************************************************\r\n");
-      PRINTF("Device descriptor:\r\n");
-      PRINTF("Desp type:%d\r\n",dev_descriptor->bDescriptorType);
-      PRINTF("Desp length:%d\r\n",dev_descriptor->bLength);
-      PRINTF("Device Class:%d\r\n",dev_descriptor->bDeviceClass);
-      PRINTF("Device Sub Class:%d\r\n",dev_descriptor->bDeviceSubClass);
-      PRINTF("Device protocol:%d\r\n",dev_descriptor->bDeviceProtocol);
-      PRINTF("Max pack size:%d\r\n",dev_descriptor->bMaxPacketSize0);
-      PRINTF("Configuration num:%d\r\n",dev_descriptor->bNumConfigurations);
-      PRINTF("Product ID:0x%x\r\n",(dev_descriptor->idProduct[1]<<8 | dev_descriptor->idProduct[0]));
-      PRINTF("Vendor ID:0x%x\r\n",(dev_descriptor->idVendor[1]<<8 | dev_descriptor->idVendor[0]));
+    PRINTF("*******************************************************\r\n");
+    PRINTF("Device descriptor:\r\n");
+    PRINTF("Desp type:%d\r\n",dev_descriptor->bDescriptorType);
+    PRINTF("Desp length:%d\r\n",dev_descriptor->bLength);
+    PRINTF("Device Class:%d\r\n",dev_descriptor->bDeviceClass);
+    PRINTF("Device Sub Class:%d\r\n",dev_descriptor->bDeviceSubClass);
+    PRINTF("Device protocol:%d\r\n",dev_descriptor->bDeviceProtocol);
+    PRINTF("Max pack size:%d\r\n",dev_descriptor->bMaxPacketSize0);
+    PRINTF("Configuration num:%d\r\n",dev_descriptor->bNumConfigurations);
+    PRINTF("Product ID:0x%x\r\n",(dev_descriptor->idProduct[1]<<8 | dev_descriptor->idProduct[0]));
+    PRINTF("Vendor ID:0x%x\r\n",(dev_descriptor->idVendor[1]<<8 | dev_descriptor->idVendor[0]));
 /* configuration descriptors */
-      PRINTF("*******************************************************\r\n");
-      PRINTF("Configuration descriptor:\r\n");
-      PRINTF("Desp type:%d\r\n",conf_descriptor->bDescriptorType);
-      PRINTF("Desp length:%d\r\n",conf_descriptor->bLength);
-      PRINTF("Interface num:%d\r\n",conf_descriptor->bNumInterfaces);
-      PRINTF("Total Desp length:%d\r\n",conf_descriptor->wTotalLength[1]<<8 | conf_descriptor->wTotalLength[0]);
+    PRINTF("*******************************************************\r\n");
+    PRINTF("Configuration descriptor:\r\n");
+    PRINTF("Desp type:%d\r\n",conf_descriptor->bDescriptorType);
+    PRINTF("Desp length:%d\r\n",conf_descriptor->bLength);
+    PRINTF("Interface num:%d\r\n",conf_descriptor->bNumInterfaces);
+    PRINTF("Total Desp length:%d\r\n",conf_descriptor->wTotalLength[1]<<8 | conf_descriptor->wTotalLength[0]);
 
 /* Interface descriptors */      
-      PRINTF("*******************************************************\r\n");
-      PRINTF("Interface descriptor:\r\n");
-      PRINTF("Desp type:%d\r\n",inf_descriptor->bDescriptorType);
-      PRINTF("Desp length:%d\r\n",inf_descriptor->bLength);
-      PRINTF("Interface index:%d\r\n",inf_descriptor->bInterfaceNumber);
-      PRINTF("Interface protocol:%d\r\n",inf_descriptor->bInterfaceProtocol);
-      PRINTF("Interface class:%d\r\n",inf_descriptor->bInterfaceClass);
-      PRINTF("Interface sub class:%d\r\n",inf_descriptor->bInterfaceSubClass);
-      PRINTF("Endpoint num:%d\r\n",inf_descriptor->bNumEndpoints);
+    PRINTF("*******************************************************\r\n");
+    PRINTF("Interface descriptor:\r\n");
+    PRINTF("Desp type:%d\r\n",inf_descriptor->bDescriptorType);
+    PRINTF("Desp length:%d\r\n",inf_descriptor->bLength);
+    PRINTF("Interface index:%d\r\n",inf_descriptor->bInterfaceNumber);
+    PRINTF("Interface protocol:%d\r\n",inf_descriptor->bInterfaceProtocol);
+    PRINTF("Interface class:%d\r\n",inf_descriptor->bInterfaceClass);
+    PRINTF("Interface sub class:%d\r\n",inf_descriptor->bInterfaceSubClass);
+    PRINTF("Endpoint num:%d\r\n",inf_descriptor->bNumEndpoints);
 
 /* Endpoints descriptors */
-      PRINTF("*******************************************************\r\n");
-      for(int i=0;i<inf_descriptor->bNumEndpoints;i++){
-        PRINTF("Endpoint%d descriptor:\r\n",i);
-        endp_descriptor = endp_list[i].epDesc;
-        PRINTF("Desp type:%d\r\n",endp_descriptor->bDescriptorType);
-        PRINTF("Desp length:%d\r\n",endp_descriptor->bLength);
-        PRINTF("Endpoint Attr:%d\r\n",endp_descriptor->bmAttributes);
-        PRINTF("Endpoint max pack size:%d\r\n",endp_descriptor->wMaxPacketSize[1]<<8 | endp_descriptor->wMaxPacketSize[0]);
-        PRINTF("Endpoint address:%d\r\n",endp_descriptor->bEndpointAddress);
-        PRINTF("Endpoint internal:%d\r\n",endp_descriptor->bInterval);
-        PRINTF("-------------------------------------\r\n");
-      }
+    PRINTF("*******************************************************\r\n");
+    for(int i=0;i<inf_descriptor->bNumEndpoints;i++) {
+      PRINTF("Endpoint%d descriptor:\r\n",i);
+      endp_descriptor = endp_list[i].epDesc;
+      PRINTF("Desp type:%d\r\n",endp_descriptor->bDescriptorType);
+      PRINTF("Desp length:%d\r\n",endp_descriptor->bLength);
+      PRINTF("Endpoint Attr:%d\r\n",endp_descriptor->bmAttributes);
+      PRINTF("Endpoint max pack size:%d\r\n",endp_descriptor->wMaxPacketSize[1]<<8 | endp_descriptor->wMaxPacketSize[0]);
+      PRINTF("Endpoint address:%d\r\n",endp_descriptor->bEndpointAddress);
+      PRINTF("Endpoint internal:%d\r\n",endp_descriptor->bInterval);
+      PRINTF("-------------------------------------\r\n");
     }
+  }
 }
 
 BulkOnly udisk;

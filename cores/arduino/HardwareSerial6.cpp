@@ -43,12 +43,3 @@ extern "C" void FLEXCOMM6_IRQHandler(void) {
 bool Serial6_available() {
   return Serial6.available();
 }
-
-
-
-
-
-
-
-
-

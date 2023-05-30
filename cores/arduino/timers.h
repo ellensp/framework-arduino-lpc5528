@@ -42,10 +42,10 @@ void timer_start(uint8_t timer_num,uint32_t interval);
 void timer_stop(uint8_t timer_num);
 void timer_update_period(uint8_t timer_num,uint32_t interval);
 // register callback function
-void timer_isr_callback_register(uint8_t time_no, p_handler timer_isr_user); 
+void timer_isr_callback_register(uint8_t time_no, p_handler timer_isr_user);
 
 #ifndef __cplusplus
 extern "C" {
 #endif
 
-#endif 
+#endif

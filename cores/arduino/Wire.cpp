@@ -54,7 +54,7 @@ extern "C" {
 #elif (USEDI2CDEV_M == 3)
   #define I2CDEV_M LPC_I2C2
 #elif (USEDI2CDEV_M == 4)
-  #define I2CDEV_M I2C4  
+  #define I2CDEV_M I2C4
 #else
   #error "Master I2C device not defined!"
 #endif
@@ -92,7 +92,7 @@ void TwoWire::begin(void) {
   i2c_master_config_t masterConfig;
   reset_ip_name_t RST_SHIFT_RSTn = kFC4_RST_SHIFT_RSTn;
   clock_attach_id_t clock_id;
-  
+
 
   /*
    * Init I2C pin connect
@@ -288,7 +288,7 @@ void TwoWire::begin(void) {
     IOCON_PinMuxSet(IOCON, 1U, 21U, port1_pin21_config);
     RST_SHIFT_RSTn = kFC4_RST_SHIFT_RSTn;
     temp_i2c = I2C4;
-    clock_id = kFRO12M_to_FLEXCOMM4;   
+    clock_id = kFRO12M_to_FLEXCOMM4;
   #endif
 
   #if USEDI2CDEV_M == 5
@@ -325,7 +325,7 @@ void TwoWire::begin(void) {
     IOCON_PinMuxSet(IOCON, 0U, 08U, port0_pin08_config);
     RST_SHIFT_RSTn = kFC5_RST_SHIFT_RSTn;
     temp_i2c = I2C5;
-    clock_id = kFRO12M_to_FLEXCOMM5;   
+    clock_id = kFRO12M_to_FLEXCOMM5;
   #endif
 
   #if USEDI2CDEV_M == 6
@@ -362,7 +362,7 @@ void TwoWire::begin(void) {
     IOCON_PinMuxSet(IOCON, 0U, 11U, port0_pin11_config);
     RST_SHIFT_RSTn = kFC6_RST_SHIFT_RSTn;
     temp_i2c = I2C6;
-    clock_id = kFRO12M_to_FLEXCOMM6;   
+    clock_id = kFRO12M_to_FLEXCOMM6;
   #endif
   #if USEDI2CDEV_M == 7
   /* Enables the clock for the I/O controller.: Enable Clock. */
@@ -398,7 +398,7 @@ void TwoWire::begin(void) {
     IOCON_PinMuxSet(IOCON, 0U, 20U, port0_pin20_config);
     RST_SHIFT_RSTn = kFC7_RST_SHIFT_RSTn;
     temp_i2c = I2C7;
-    clock_id = kFRO12M_to_FLEXCOMM7;   
+    clock_id = kFRO12M_to_FLEXCOMM7;
   #endif
 
 
@@ -425,7 +425,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity) {
 
   // perform blocking read into buffer
   i2c_master_transfer_t i2c_xfer;
-  
+
   i2c_xfer.slaveAddress = address;
   i2c_xfer.direction = kI2C_Read; // kI2C_Read
   i2c_xfer.data = rxBuffer;

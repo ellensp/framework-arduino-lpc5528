@@ -36,11 +36,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fsl_gpio.h"
 #include "usb_msc.h"
 
-
 // Force init to be called *first*, i.e. before static object allocation.
 // Otherwise, statically allocated objects that need HAL may fail.
-__attribute__((constructor(101))) void premain()
-{
+__attribute__((constructor(101))) void premain() {
 	/* enable clock for GPIO*/
     CLOCK_EnableClock(kCLOCK_Gpio0);
     CLOCK_EnableClock(kCLOCK_Gpio1);
@@ -51,8 +49,7 @@ __attribute__((constructor(101))) void premain()
 /*
  * \brief Main entry point of Arduino application
  */
-int main(void)
-{
+int main(void) {
   setup();
   for (;;) {
     fs_usb_loop();

@@ -43,12 +43,3 @@ HardwareSerial<> Serial3 = HardwareSerial<>(USART3);
 bool Serial3_available() {
   return Serial3.available();
 }
-
-
-
-
-
-
-
-
-

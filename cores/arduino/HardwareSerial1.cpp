@@ -43,12 +43,3 @@ extern "C" void FLEXCOMM1_IRQHandler(void) {
 bool Serial1_available() {
   return Serial1.available();
 }
-
-
-
-
-
-
-
-
-

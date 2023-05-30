@@ -47,9 +47,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define   getString( pre_string, post_string, buffer, length)
 readBytesBetween( pre_string, terminator, buffer, length)
 */
-
-class Stream : public Print
-{
+class Stream : public Print {
   protected:
     unsigned long _timeout;      // number of milliseconds to wait for the next char before aborting timed read
     unsigned long _startMillis;  // used for timeout measurement
@@ -123,6 +121,5 @@ class Stream : public Print
   // Returns index of the target that is found first or -1 if timeout occurs.
   int findMulti(struct MultiTarget *targets, int tCount);
 };
-
 
 #endif //_STREAM_H_

@@ -34,11 +34,9 @@ class USBComposite {
     // void registerMscHandler(USBMscHandler &pHandler);
     // void registerMscHandlers(uint8_t count, USBMscHandler **pHandlers, uint8_t *pInquiryData);
 #endif
-
     void begin(void);
 
     void end(void);
-
   protected:
     void initialize();
     void deinitialize();

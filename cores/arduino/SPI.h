@@ -52,8 +52,7 @@ extern volatile bool isTransferCompleted;
 #define CS_PIN_CONFIG   (0x01|0x20|0x00|0x0100)
 #define SCK_PIN_CONFIG  (0x07|0x20|0x00|0x0100)
 
-typedef enum _spi_dataMode
-{
+typedef enum _spi_dataMode {
     SPI_MODE0 = 0, /*!< Slave select 0 */
     SPI_MODE1 = 1, /*!< Slave select 1 */
     SPI_MODE2 = 2, /*!< Slave select 2 */
@@ -63,41 +62,35 @@ typedef enum _spi_dataMode
 /*
 * the class of the SPISettings
 */
-class SPISettings
-{
+class SPISettings {
     public:
-        SPISettings(uint32_t clock,spi_shift_direction_t MsbOrLsbFirst,spi_dataMode_t SPIMode,bool dmaUse)
-        {
-            init_AlwaysInline(clock,MsbOrLsbFirst,SPIMode,kSPI_Data8Bits,dmaUse);               
+        SPISettings(uint32_t clock,spi_shift_direction_t MsbOrLsbFirst,spi_dataMode_t SPIMode,bool dmaUse) {
+            init_AlwaysInline(clock,MsbOrLsbFirst,SPIMode,kSPI_Data8Bits,dmaUse);
         }
-        SPISettings(uint32_t clock,spi_shift_direction_t MsbOrLsbFirst,spi_dataMode_t SPIMode,spi_data_width_t inDataSize,bool dmaUse)
-        {
-            init_AlwaysInline(clock,MsbOrLsbFirst,SPIMode,inDataSize,dmaUse);    
+        SPISettings(uint32_t clock,spi_shift_direction_t MsbOrLsbFirst,spi_dataMode_t SPIMode,spi_data_width_t inDataSize,bool dmaUse) {
+            init_AlwaysInline(clock,MsbOrLsbFirst,SPIMode,inDataSize,dmaUse);
         }
-        SPISettings(uint32_t clock,spi_shift_direction_t MsbOrLsbFirst,spi_dataMode_t SPIMode)
-        {
-            init_AlwaysInline(clock,MsbOrLsbFirst,SPIMode,kSPI_Data8Bits,false);               
+        SPISettings(uint32_t clock,spi_shift_direction_t MsbOrLsbFirst,spi_dataMode_t SPIMode) {
+            init_AlwaysInline(clock,MsbOrLsbFirst,SPIMode,kSPI_Data8Bits,false);
         }
-        SPISettings(void)
-        {
+        SPISettings(void) {
             init_AlwaysInline(10000000,kSPI_MsbFirst,SPI_MODE0,kSPI_Data8Bits,false);
         }
-        friend class SPIClass;  
+        friend class SPIClass;
     private:
-        void init_AlwaysInline(uint32_t inClock, spi_shift_direction_t inBitOrder, spi_dataMode_t inDataMode, spi_data_width_t inDataSize,bool dmaUse)
-        {
+        void init_AlwaysInline(uint32_t inClock, spi_shift_direction_t inBitOrder, spi_dataMode_t inDataMode, spi_data_width_t inDataSize,bool dmaUse) {
             clock    = inClock;
             bitOrder = inBitOrder;
             dataMode = inDataMode;
-            dataSize = inDataSize; 
-            dmaEn    = dmaUse;           
+            dataSize = inDataSize;
+            dmaEn    = dmaUse;
         }
 
         uint32_t clock;
         uint8_t CS_Choose;
         spi_data_width_t dataSize;
         spi_shift_direction_t bitOrder;
-        spi_dataMode_t dataMode; 
+        spi_dataMode_t dataMode;
         SPI_Type * spi_id;
         bool dmaEn;
 
@@ -107,13 +100,12 @@ class SPISettings
 /*
 * the class of the spi
 */
-class SPIClass
-{
+class SPIClass {
     public:
         SPIClass(uint8_t spiPortNumber);
 
         void begin(void);
-        void end(void);   
+        void end(void);
         void beginTransaction(class SPISettings&);
         void endTransaction();
         void setModule(uint8_t device);
@@ -128,9 +120,9 @@ class SPIClass
         void transfer(uint8_t *buffer,uint16_t size);
         // void transfer(uint8_t val);
         uint8_t transfer(uint8_t val);
-        uint16_t transfer16(uint16_t val); 
+        uint16_t transfer16(uint16_t val);
         void transfer16(uint16_t *buffer,uint16_t size);
-        void dmaSend(uint16_t *buf, uint16_t length, bool minc); 
+        void dmaSend(uint16_t *buf, uint16_t length, bool minc);
         void dmaTransfer(uint8_t *txbuffer,uint8_t *rxbuffer,uint16_t length);
         // uint8_t transfer(const uint16_t b);
 
@@ -160,7 +152,7 @@ extern class SPIClass SPI_4;
 extern class SPIClass HS_SPI;
 // extern class SPIClass SPI_flash;
 extern class SPIClass SPI_wifi;
-// extern class SPIClass TMC_SPI;          //冯工
+// extern class SPIClass TMC_SPI;
 extern bool DMA_inc;
 
 #endif

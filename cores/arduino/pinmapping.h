@@ -37,7 +37,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
-
 #pragma once
 
 #define P_NC -1
@@ -108,11 +107,11 @@ extern "C" {
 #define P1_31 0x3F
 
 #define A0  P0_16
-#define A1  P0_23 
+#define A1  P0_23
 #define A2  P0_00
-#define A3  P1_31 
-#define A4  P0_13 
-#define A5  P0_14 
+#define A3  P1_31
+#define A4  P0_13
+#define A5  P0_14
 
 #define D0  P1_24
 #define D1  P0_27
@@ -135,13 +134,13 @@ extern "C" {
 #define LED_GREEN P1_07
 #define LED_BLUE  P1_04
 
-#define USER_SW   P1_09  
+#define USER_SW   P1_09
 #define WAKE_SW   P1_18
 
 #define UART_TX   D1
 #define UART_RX	  D0
 
-#define IIC_SCL   D15   
+#define IIC_SCL   D15
 #define IIC_SDA	  D14
 
 #define SPI_CS    D10

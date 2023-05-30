@@ -30,24 +30,22 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
 #include "Arduino.h"
 
 #include "fsl_gpio.h"
 #include "fsl_iocon.h"
 
-void pinMode(uint32_t pin, uint32_t mode)
-{
+void pinMode(uint32_t pin, uint32_t mode) {
 	if(!PIN_CHECK_VALID(pin)){
 		return;
 	}
-	
+
 	uint32_t modefunc;
 	gpio_pin_config_t pin_config = {
         kGPIO_DigitalOutput,
         0,
     };
-	
+
 	switch(mode){
 		case INPUT:
 		{
@@ -76,16 +74,14 @@ void pinMode(uint32_t pin, uint32_t mode)
 	GPIO_PinInit(GPIO, get_gpio_port(pin), get_gpio_pin(pin), &pin_config);
 }
 
-void digitalWrite(uint32_t pin, uint32_t val)
-{
+void digitalWrite(uint32_t pin, uint32_t val) {
 	if(!PIN_CHECK_VALID(pin)){
 		return;
 	}
 	GPIO_PinWrite(GPIO, get_gpio_port(pin),get_gpio_pin(pin), val);
 }
 
-int digitalRead(uint32_t pin)
-{
+int digitalRead(uint32_t pin) {
 	if(!PIN_CHECK_VALID(pin)){
 		return 0;
 	}

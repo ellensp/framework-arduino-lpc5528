@@ -30,7 +30,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _PRINTABLE_H_ 
+#ifndef _PRINTABLE_H_
 #define _PRINTABLE_H_
 
 #include <stdlib.h>
@@ -44,8 +44,7 @@ class Print;
     Print::print and Print::println methods.
 */
 
-class Printable
-{
+class Printable {
   public:
     virtual size_t printTo(Print& p) const = 0;
 };

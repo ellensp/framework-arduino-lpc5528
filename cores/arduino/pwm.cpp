@@ -60,7 +60,7 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 	uint32_t pwm_period = 0;
 	uint32_t pwm_pulse = 0;
 	sctimer_config_t sctimerInfo;
-		
+
 	SCTIMER_GetDefaultConfig(&sctimerInfo);
 	sctimerInfo.enableCounterUnify = false;
 	freq = CLOCK_GetFreq(kCLOCK_BusClk);
@@ -78,7 +78,7 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 		SCT0->CONFIG |= ( 1 << 17);     // auto limit
 		SCT0->MATCHREL[0] = pwm_period; // match 0
 		SCT0->EV[0].STATE = 0XFFFFFFFF; // event 0 happens in all states
-		SCT0->EV[0].CTRL = (1 << 12);   // match 0 condition only 
+		SCT0->EV[0].CTRL = (1 << 12);   // match 0 condition only
 		sct_init_flag= 2;
 	}
     CLOCK_EnableClock(kCLOCK_Iocon);
@@ -89,10 +89,10 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 		case 0x11: //PIO0_17
 		case 0x24: //PIO1_4
 		case 0x37: //PIO1_23
-                if(pwm_pin==0x02) IOCON_PinMuxSet(IOCON, 0U, 2U,  SCTOUT_PIN_CONFIG_03);
-				if(pwm_pin==0x11) IOCON_PinMuxSet(IOCON, 0U, 17U, SCTOUT_PIN_CONFIG_04);	
-				if(pwm_pin==0x24) IOCON_PinMuxSet(IOCON, 1U, 4U,  SCTOUT_PIN_CONFIG_04);	
-				if(pwm_pin==0x37) IOCON_PinMuxSet(IOCON, 1U, 23U, SCTOUT_PIN_CONFIG_02);				
+        if(pwm_pin==0x02) IOCON_PinMuxSet(IOCON, 0U, 2U,  SCTOUT_PIN_CONFIG_03);
+				if(pwm_pin==0x11) IOCON_PinMuxSet(IOCON, 0U, 17U, SCTOUT_PIN_CONFIG_04);
+				if(pwm_pin==0x24) IOCON_PinMuxSet(IOCON, 1U, 4U,  SCTOUT_PIN_CONFIG_04);
+				if(pwm_pin==0x37) IOCON_PinMuxSet(IOCON, 1U, 23U, SCTOUT_PIN_CONFIG_02);
 				SCT0->MATCHREL[1] = pwm_pulse;// match 1 used for duty cycle
 				SCT0->EV[1].STATE = 0XFFFFFFFF; // event 1 happens in all states
 				SCT0->EV[1].CTRL = (0x1 << 0) | (1 << 12); // match 1 condition only
@@ -100,12 +100,12 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 				SCT0->OUT[0].CLR = ( 1 << 1); // event 1 will clear SCTx_OUT0
 		break;
 
-		//SCT_OUT1 
+		//SCT_OUT1
 		case 0x03: //PIO0_3
 		case 0x12: //PIO0_18
 		case 0x28: //PIO1_8
-		case 0x38: //PIO1_24  
-			    if(pwm_pin==0x03) IOCON_PinMuxSet(IOCON, 0U, 3U,  SCTOUT_PIN_CONFIG_03);
+		case 0x38: //PIO1_24
+			  if(pwm_pin==0x03) IOCON_PinMuxSet(IOCON, 0U, 3U,  SCTOUT_PIN_CONFIG_03);
 				if(pwm_pin==0x12) IOCON_PinMuxSet(IOCON, 0U, 18U, SCTOUT_PIN_CONFIG_04);
 				if(pwm_pin==0x28) IOCON_PinMuxSet(IOCON, 1U, 8U,  SCTOUT_PIN_CONFIG_04);
 				if(pwm_pin==0x38) IOCON_PinMuxSet(IOCON, 1U, 24U, SCTOUT_PIN_CONFIG_02);
@@ -122,7 +122,7 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 		case 0x13: //P0_19
 		case 0x29: //P1_09
 		case 0x39: //P1_25
-			    if(pwm_pin==0x0A) IOCON_PinMuxSet(IOCON, 0U, 10U, SCTOUT_PIN_CONFIG_05);
+			  if(pwm_pin==0x0A) IOCON_PinMuxSet(IOCON, 0U, 10U, SCTOUT_PIN_CONFIG_05);
 				if(pwm_pin==0x0F) IOCON_PinMuxSet(IOCON, 0U, 15U, SCTOUT_PIN_CONFIG_04);
 				if(pwm_pin==0x13) IOCON_PinMuxSet(IOCON, 0U, 19U, SCTOUT_PIN_CONFIG_04);
 				if(pwm_pin==0x29) IOCON_PinMuxSet(IOCON, 1U, 9U,  SCTOUT_PIN_CONFIG_04);
@@ -138,7 +138,7 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 		case 0x16: //P0_22
 		case 0x1F: //P0_31
 		case 0x2A: //P1_10
-		case 0x3A: //P1_26   
+		case 0x3A: //P1_26
 			    if(pwm_pin==0x16) IOCON_PinMuxSet(IOCON, 0U, 22U, SCTOUT_PIN_CONFIG_04);
 				if(pwm_pin==0x1F) IOCON_PinMuxSet(IOCON, 0U, 31U, SCTOUT_PIN_CONFIG_04);
 				if(pwm_pin==0x2A) IOCON_PinMuxSet(IOCON, 1U, 10U, SCTOUT_PIN_CONFIG_04);
@@ -153,7 +153,7 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 		//SCT_OUT4
 		case 0x17: //P0_23
 		case 0x23: //P1_03
-		case 0x31: //P1_17    
+		case 0x31: //P1_17
 			    if(pwm_pin==0x17) IOCON_PinMuxSet(IOCON, 0U, 23U, SCTOUT_PIN_CONFIG_04);
 				if(pwm_pin==0x23) IOCON_PinMuxSet(IOCON, 1U, 3U,  SCTOUT_PIN_CONFIG_04);
 				if(pwm_pin==0x31) IOCON_PinMuxSet(IOCON, 1U, 17U, SCTOUT_PIN_CONFIG_04);
@@ -166,7 +166,7 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 
 		//SCT_OUT5
 		case 0x1A: //P0_26
-		case 0x32: //P1_18    
+		case 0x32: //P1_18
 			    if(pwm_pin==0x1A) IOCON_PinMuxSet(IOCON, 0U, 26U, SCTOUT_PIN_CONFIG_04);
 				if(pwm_pin==0x32) IOCON_PinMuxSet(IOCON, 1U, 18U, SCTOUT_PIN_CONFIG_04);
 				SCT0->MATCHREL[6] = pwm_pulse;// match 6 used for duty cycle
@@ -178,7 +178,7 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 
 		//SCT_OUT6
 		case 0x1B: //P0_27
-		case 0x3F: //P1_31  
+		case 0x3F: //P1_31
 			    if(pwm_pin==0x1B) IOCON_PinMuxSet(IOCON, 0U, 27U, SCTOUT_PIN_CONFIG_04);
 				if(pwm_pin==0x3F) IOCON_PinMuxSet(IOCON, 1U, 31U, SCTOUT_PIN_CONFIG_04);
 				SCT0->MATCHREL[7] = pwm_pulse;// match 7 used for duty cycle
@@ -190,7 +190,7 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 
         //SCT_OUT7
 		case 0x1C: //P0_28
-		case 0x33: //P1_19   
+		case 0x33: //P1_19
 			    if(pwm_pin==0x1C) IOCON_PinMuxSet(IOCON, 0U, 28U, SCTOUT_PIN_CONFIG_04);
 				if(pwm_pin==0x33) IOCON_PinMuxSet(IOCON, 1U, 19U, SCTOUT_PIN_CONFIG_02);
 				SCT0->MATCHREL[8] = pwm_pulse;// match 5 used for duty cycle
@@ -199,9 +199,9 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 				SCT0->OUT[7].SET = ( 1 << 0); 	// event 0 will set SCTx_OUT4
 				SCT0->OUT[7].CLR = ( 1 << 8); // event 5 will clear SCTx_OUT4
 		break;
-        
+
 		//SCT_OUT8
-		case 0x1D: //P0_29  
+		case 0x1D: //P0_29
 			    IOCON_PinMuxSet(IOCON, 0U, 29U, SCTOUT_PIN_CONFIG_04);
 				SCT0->MATCHREL[9] = pwm_pulse;// match 6 used for duty cycle
 				SCT0->EV[9].STATE = 0XFFFFFFFF; // event 6 happens in all states
@@ -211,7 +211,7 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 		break;
 
 		//SCT_OUT9
-	    case 0x1E: //P0_30    
+	    case 0x1E: //P0_30
 			    IOCON_PinMuxSet(IOCON, 0U, 30U, SCTOUT_PIN_CONFIG_04);
 				SCT0->MATCHREL[10] = pwm_pulse;             // match 7 used for duty cycle
 				SCT0->EV[10].STATE = 0XFFFFFFFF;            // event 7 happens in all states
@@ -220,7 +220,7 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 				SCT0->OUT[9].CLR = ( 1 << 10);              // event 7 will clear SCTx_OUT6
 		break;
 
-		default :   
+		default :
 		break;
 	}
 	CLOCK_DisableClock(kCLOCK_Iocon);
@@ -228,8 +228,7 @@ void analogWrite(uint8_t pwm_pin,uint16_t pwm_duty)
 }
 
 
-void analogWriteDuty(uint8_t pwm_pin,uint16_t pwm_duty)
-{
+void analogWriteDuty(uint8_t pwm_pin,uint16_t pwm_duty) {
 	uint32_t pwm_pulse = 0;
 	SCT0->CONFIG |= (1 << 7);
 
@@ -239,12 +238,8 @@ void analogWriteDuty(uint8_t pwm_pin,uint16_t pwm_duty)
 	SCT0->CONFIG &= ~(1 << 7);
 }
 
-
-
-
 //********************************************
-void pwm_init(const uint16_t frequency)
-{
+void pwm_init(const uint16_t frequency) {
     uint32_t Clockfreq = 0;
 	// uint32_t pwm_period = 0;
 	sctimer_config_t sctimerInfo;
@@ -265,12 +260,11 @@ void pwm_init(const uint16_t frequency)
 	// SCT0->MATCHREL[0] = pwm_period;  // match 0
 	SCT0->MATCHREL[0] = (Clockfreq / frequency) -1;  // match 0
 	SCT0->EV[0].STATE = 0XFFFFFFFF;  // event 0 happens in all states
-	SCT0->EV[0].CTRL = (1 << 12);    // match 0 condition only 	
+	SCT0->EV[0].CTRL = (1 << 12);    // match 0 condition only
 }
 
 
-bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value)
-{
+bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value) {
 	    uint32_t pwm_pulse = 0;
 		pwm_pulse = SCT0->MATCHREL[0] * value / ResulotionBit;
 	    CLOCK_EnableClock(kCLOCK_Iocon);
@@ -282,10 +276,10 @@ bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value)
 			case 0x24: //PIO1_4
 			case 0x37: //PIO1_23
 					if(pwm_pin==0x02) IOCON_PinMuxSet(IOCON, 0U, 2U,  SCTOUT_PIN_CONFIG_03);
-					if(pwm_pin==0x11) IOCON_PinMuxSet(IOCON, 0U, 17U, SCTOUT_PIN_CONFIG_04);	
-					if(pwm_pin==0x24) IOCON_PinMuxSet(IOCON, 1U, 4U,  SCTOUT_PIN_CONFIG_04);	
+					if(pwm_pin==0x11) IOCON_PinMuxSet(IOCON, 0U, 17U, SCTOUT_PIN_CONFIG_04);
+					if(pwm_pin==0x24) IOCON_PinMuxSet(IOCON, 1U, 4U,  SCTOUT_PIN_CONFIG_04);
 					if(pwm_pin==0x37) IOCON_PinMuxSet(IOCON, 1U, 23U, SCTOUT_PIN_CONFIG_02);
-					SCT0->MATCHREL[1] = SCT0->MATCHREL[0] * value / ResulotionBit; 				
+					SCT0->MATCHREL[1] = SCT0->MATCHREL[0] * value / ResulotionBit;
 					// SCT0->MATCHREL[1] = pwm_pulse;             // match 1 used for duty cycle
 					SCT0->EV[1].STATE = 0XFFFFFFFF;            // event 1 happens in all states
 					SCT0->EV[1].CTRL = (0x1 << 0) | (1 << 12); // match 1 condition only
@@ -293,11 +287,11 @@ bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value)
 					SCT0->OUT[0].CLR = ( 1 << 1);              // event 1 will clear SCTx_OUT0
 			break;
 
-			//SCT_OUT1 
+			//SCT_OUT1
 			case 0x03: //PIO0_3
 			case 0x12: //PIO0_18
 			case 0x28: //PIO1_8
-			case 0x38: //PIO1_24  
+			case 0x38: //PIO1_24
 					if(pwm_pin==0x03) IOCON_PinMuxSet(IOCON, 0U, 3U,  SCTOUT_PIN_CONFIG_03);
 					if(pwm_pin==0x12) IOCON_PinMuxSet(IOCON, 0U, 18U, SCTOUT_PIN_CONFIG_04);
 					if(pwm_pin==0x28) IOCON_PinMuxSet(IOCON, 1U, 8U,  SCTOUT_PIN_CONFIG_04);
@@ -331,7 +325,7 @@ bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value)
 			case 0x16: //P0_22
 			case 0x1F: //P0_31
 			case 0x2A: //P1_10
-			case 0x3A: //P1_26   
+			case 0x3A: //P1_26
 					if(pwm_pin==0x16) IOCON_PinMuxSet(IOCON, 0U, 22U, SCTOUT_PIN_CONFIG_04);
 					if(pwm_pin==0x1F) IOCON_PinMuxSet(IOCON, 0U, 31U, SCTOUT_PIN_CONFIG_04);
 					if(pwm_pin==0x2A) IOCON_PinMuxSet(IOCON, 1U, 10U, SCTOUT_PIN_CONFIG_04);
@@ -346,7 +340,7 @@ bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value)
 			//SCT_OUT4
 			case 0x17: //P0_23
 			case 0x23: //P1_03
-			case 0x31: //P1_17    
+			case 0x31: //P1_17
 					if(pwm_pin==0x17) IOCON_PinMuxSet(IOCON, 0U, 23U, SCTOUT_PIN_CONFIG_04);
 					if(pwm_pin==0x23) IOCON_PinMuxSet(IOCON, 1U, 3U,  SCTOUT_PIN_CONFIG_04);
 					if(pwm_pin==0x31) IOCON_PinMuxSet(IOCON, 1U, 17U, SCTOUT_PIN_CONFIG_04);
@@ -359,7 +353,7 @@ bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value)
 
 			//SCT_OUT5
 			case 0x1A: //P0_26
-			case 0x32: //P1_18    
+			case 0x32: //P1_18
 					if(pwm_pin==0x1A) IOCON_PinMuxSet(IOCON, 0U, 26U, SCTOUT_PIN_CONFIG_04);
 					if(pwm_pin==0x32) IOCON_PinMuxSet(IOCON, 1U, 18U, SCTOUT_PIN_CONFIG_04);
 					SCT0->MATCHREL[6] = SCT0->MATCHREL[0] * value / ResulotionBit;             // match 6 used for duty cycle
@@ -371,7 +365,7 @@ bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value)
 
 			//SCT_OUT6
 			case 0x1B: //P0_27
-			case 0x3F: //P1_31  
+			case 0x3F: //P1_31
 					if(pwm_pin==0x1B) IOCON_PinMuxSet(IOCON, 0U, 27U, SCTOUT_PIN_CONFIG_04);
 					if(pwm_pin==0x3F) IOCON_PinMuxSet(IOCON, 1U, 31U, SCTOUT_PIN_CONFIG_04);
 					SCT0->MATCHREL[7] = SCT0->MATCHREL[0] * value / ResulotionBit;             // match 7 used for duty cycle
@@ -383,7 +377,7 @@ bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value)
 
 			//SCT_OUT7
 			case 0x1C: //P0_28
-			case 0x33: //P1_19   
+			case 0x33: //P1_19
 					if(pwm_pin==0x1C) IOCON_PinMuxSet(IOCON, 0U, 28U, SCTOUT_PIN_CONFIG_04);
 					if(pwm_pin==0x33) IOCON_PinMuxSet(IOCON, 1U, 19U, SCTOUT_PIN_CONFIG_02);
 					SCT0->MATCHREL[8] = SCT0->MATCHREL[0] * value / ResulotionBit;             // match 5 used for duty cycle
@@ -392,9 +386,9 @@ bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value)
 					SCT0->OUT[7].SET = ( 1 << 0); 	           // event 0 will set SCTx_OUT4
 					SCT0->OUT[7].CLR = ( 1 << 8);              // event 5 will clear SCTx_OUT4
 			break;
-			
+
 			//SCT_OUT8
-			case 0x1D: //P0_29  
+			case 0x1D: //P0_29
 					IOCON_PinMuxSet(IOCON, 0U, 29U, SCTOUT_PIN_CONFIG_04);
 					SCT0->MATCHREL[9] = SCT0->MATCHREL[0] * value / ResulotionBit;             // match 6 used for duty cycle
 					SCT0->EV[9].STATE = 0XFFFFFFFF;            // event 6 happens in all states
@@ -404,7 +398,7 @@ bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value)
 			break;
 
 			//SCT_OUT9
-			case 0x1E: //P0_30    
+			case 0x1E: //P0_30
 					IOCON_PinMuxSet(IOCON, 0U, 30U, SCTOUT_PIN_CONFIG_04);
 					SCT0->MATCHREL[10] = SCT0->MATCHREL[0] * value / ResulotionBit;             // match 7 used for duty cycle
 					SCT0->EV[10].STATE = 0XFFFFFFFF;            // event 7 happens in all states
@@ -413,36 +407,31 @@ bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value)
 					SCT0->OUT[9].CLR = ( 1 << 10);              // event 7 will clear SCTx_OUT6
 			break;
 
-			default :   
+			default :
 			break;
 		}
 		CLOCK_DisableClock(kCLOCK_Iocon);
 		SCTIMER_StartTimer(SCT0, (uint32_t)kSCTIMER_Counter_U);
-		// SCTIMER_StartTimer(SCT0, (uint32_t)kSCTIMER_Counter_L);	
+		// SCTIMER_StartTimer(SCT0, (uint32_t)kSCTIMER_Counter_L);
 		return true;
 }
 
-bool pwm_detach_pin(const uint8_t pin)
-{
+bool pwm_detach_pin(const uint8_t pin) {
         SCTIMER_StopTimer(SCT0, (uint32_t)kSCTIMER_Counter_U);
 		pinMode(pin,OUTPUT);
-		digitalWrite(pin,LOW);	
+		digitalWrite(pin,LOW);
 		return true;
 }
 
-
-uint32_t pwm_get_period(const uint8_t pin)
-{
+uint32_t pwm_get_period(const uint8_t pin) {
 	return (SCT0->MATCHREL[0]+1);
 }
 
-bool pwm_set_frequency(const uint8_t pin, const uint32_t frequency)
-{
+bool pwm_set_frequency(const uint8_t pin, const uint32_t frequency) {
 	return 0;
 }
 
-bool pwm_write(const uint8_t pin, const uint32_t value)
-{
+bool pwm_write(const uint8_t pin, const uint32_t value) {
 	uint32_t pwm_pulse = 0;
 	uint8_t pwmid=0;
 
@@ -455,9 +444,7 @@ bool pwm_write(const uint8_t pin, const uint32_t value)
 	return 1;
 }
 
-
-bool pwm_write_us(const uint8_t pin, const uint32_t value)
-{
+bool pwm_write_us(const uint8_t pin, const uint32_t value) {
 	uint32_t pwm_pulse = 0;
 	uint8_t pwmid=0;
 
@@ -470,23 +457,22 @@ bool pwm_write_us(const uint8_t pin, const uint32_t value)
 	return 1;
 }
 
-uint8_t pwm_outchannel_id(const uint8_t pin)
-{
+uint8_t pwm_outchannel_id(const uint8_t pin) {
 	switch(pin)
 		{
 			//SCT_OUT0
 			case 0x02: //PIO0_2
 			case 0x11: //PIO0_17
 			case 0x24: //PIO1_4
-			case 0x37: //PIO1_23				
+			case 0x37: //PIO1_23
 					return 0;
 			break;
 
-			//SCT_OUT1 
+			//SCT_OUT1
 			case 0x03: //PIO0_3
 			case 0x12: //PIO0_18
 			case 0x28: //PIO1_8
-			case 0x38: //PIO1_24  
+			case 0x38: //PIO1_24
 					return 1;
 			break;
 
@@ -503,47 +489,47 @@ uint8_t pwm_outchannel_id(const uint8_t pin)
 			case 0x16: //P0_22
 			case 0x1F: //P0_31
 			case 0x2A: //P1_10
-			case 0x3A: //P1_26   
+			case 0x3A: //P1_26
 					return 3;
 			break;
 
 			//SCT_OUT4
 			case 0x17: //P0_23
 			case 0x23: //P1_03
-			case 0x31: //P1_17    
+			case 0x31: //P1_17
 					return 4;
 			break;
 
 			//SCT_OUT5
 			case 0x1A: //P0_26
-			case 0x32: //P1_18    
+			case 0x32: //P1_18
 					return 5;
 			break;
 
 			//SCT_OUT6
 			case 0x1B: //P0_27
-			case 0x3F: //P1_31  
+			case 0x3F: //P1_31
 					return 6;
 			break;
 
 			//SCT_OUT7
 			case 0x1C: //P0_28
-			case 0x33: //P1_19   
+			case 0x33: //P1_19
 					return 7;
 			break;
-			
+
 			//SCT_OUT8
-			case 0x1D: //P0_29  
+			case 0x1D: //P0_29
 					return 8;
 			break;
 
 			//SCT_OUT9
-			case 0x1E: //P0_30    
+			case 0x1E: //P0_30
 					return 9;
 			break;
 
-			default : 
-			 		return 100;  
+			default :
+			 		return 100;
 			break;
 		}
 }

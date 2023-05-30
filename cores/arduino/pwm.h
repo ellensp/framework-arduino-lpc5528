@@ -43,7 +43,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define SCTOUT_PIN_CONFIG_03 (0x03u|0x0100u|0x0400u)
 #define SCTOUT_PIN_CONFIG_02 (0x02u|0x0100u|0x0400u)
 
-
 /*
 * setup PWM
 * pwm_pin:
@@ -65,17 +64,16 @@ void analogWriteDuty(uint8_t pwm_pin,uint16_t pwm_duty);
 /*
 * change the range of the pwm duty
 * bit:
-* 	 100~65535		 
+* 	 100~65535
 */
-void analogWriteResolution(uint16_t bit); 
-
+void analogWriteResolution(uint16_t bit);
 
 //------------------------------------------------imitate 1768 library
 
 /*
 * pwm init
 * frequency:
-* 	 not over the clock	
+* 	 not over the clock
 */
 void pwm_init(const uint16_t frequency);
 
@@ -83,8 +81,8 @@ void pwm_init(const uint16_t frequency);
 * attach pwm to pwm pin,and setup the init duty
 * pwm_pin:
 * 	 the sct output pin
-* value:		
-*    the pwm duty(default is 0~100)	 
+* value:
+*    the pwm duty(default is 0~100)
 */
 bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value);
 
@@ -92,8 +90,8 @@ bool pwm_attach_pin(const uint8_t pwm_pin, const uint32_t value);
 * update the duty
 * pin:
 * 	 the sct output pin
-* value:		
-*    the pwm duty(default is 0~100)	 
+* value:
+*    the pwm duty(default is 0~100)
 */
 bool pwm_write(const uint8_t pin, const uint32_t value);
 
@@ -102,22 +100,22 @@ bool pwm_write(const uint8_t pin, const uint32_t value);
 * setup the duty in microsecond
 * pin:
 * 	 the sct output pin
-* value:		
-*    not over the pwm period	 
+* value:
+*    not over the pwm period
 */
 bool pwm_write_us(const uint8_t pin, const uint32_t value);
 
 /*
 * stop the pwm output and reset the pin to gpio
 * pin:
-* 	 the sct output pin 
+* 	 the sct output pin
 */
 bool pwm_detach_pin(const uint8_t pin);
 
 /*
 * acquire the pwm period
 * pin:
-* 	 the sct output pin 
+* 	 the sct output pin
 * return:
 *    the max counter value
 */
@@ -126,7 +124,7 @@ uint32_t pwm_get_period(const uint8_t pin);
 /*
 * change the pwm frequency
 * pin:
-* 	 the sct output pin 
+* 	 the sct output pin
 * frequency:
 *    the pwm frequency
 */
@@ -135,11 +133,10 @@ bool pwm_set_frequency(const uint8_t pin, const uint32_t frequency);
 /*
 * return the pwm pin's output channel
 * pin:
-* 	 the sct output pin 
+* 	 the sct output pin
 * return:
 *    the sct output number
 */
 uint8_t pwm_outchannel_id(const uint8_t pin);
-
 
 #endif //_PWM_H_

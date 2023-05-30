@@ -41,24 +41,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define ADC_PIN_CONFIG (0x00u|0x0400u)
 
-
 /*
 * config adc
 */
 void adc_config(void);
 
 /*
-* setup the adc reference voltage 
+* setup the adc reference voltage
 * reference:
 * 		kLPADC_ReferenceVoltageAlt1 --reserved
 * 		kLPADC_ReferenceVoltageAlt2 --VDDA
 * 		kLPADC_ReferenceVoltageAlt3 --VREFP
 */
-void analogReference(uint8_t reference);   
+void analogReference(uint8_t reference);
 
 
 /*
-* set the sizes(in bits) of the value returned by the analogRead() 
+* set the sizes(in bits) of the value returned by the analogRead()
 * bit:
 * 		kLPADC_ConversionResolutionStandard 12bits
 * 		kLPADC_ConversionResolutionHigh   16bits
@@ -66,19 +65,17 @@ void analogReference(uint8_t reference);
 */
 void analogReadResolution(lpadc_conversion_resolution_mode_t bitsel);
 
-
-
 //------------------------------------------------another version
 
 /*
-* init the adc module 
+* init the adc module
 * adc_pin:
 * 		the adc pin
 */
 void adc_init(uint8_t adc_pin);
 
 /*
-* read the adc result 
+* read the adc result
 * adc_pin:
 * 		the adc pin
 * return:
